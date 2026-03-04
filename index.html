@@ -514,14 +514,15 @@
             <table id="resultTable">
                 <thead>
                     <tr>
-                        <th>尺码 (in/cm)</th>
-                        <th>规格</th>
-                        <th>长度(cm)</th>
-                        <th>宽度(cm)</th>
-                        <th>高度(cm)</th>
-                        <th>克重(g)</th>
-                        <th>材质</th>
-                        <th>面积(㎡)</th>
+                        <th style="width: 180px;">尺码 (in/cm)</th>
+                        <th style="width: 100px;">规格</th>
+                        <th style="width: 80px;">长度(cm)</th>
+                        <th style="width: 80px;">宽度(cm)</th>
+                        <th style="width: 80px;">高度(cm)</th>
+                        <th style="width: 80px;">克重(g)</th>
+                        <th style="width: 100px;">材质</th>
+                        <th style="width: 100px;">面积(㎡)</th>
+                        <th style="width: 100px;">金额(元)</th>
                     </tr>
                 </thead>
                 <tbody id="resultBody">
@@ -541,14 +542,15 @@
             <table class="similar-table">
                 <thead>
                     <tr>
-                        <th>尺码 (in/cm)</th>
-                        <th>规格</th>
-                        <th>长度(cm)</th>
-                        <th>宽度(cm)</th>
-                        <th>高度(cm)</th>
-                        <th>克重(g)</th>
-                        <th>材质</th>
-                        <th>面积(㎡)</th>
+                        <th style="width: 180px;">尺码 (in/cm)</th>
+                        <th style="width: 100px;">规格</th>
+                        <th style="width: 80px;">长度(cm)</th>
+                        <th style="width: 80px;">宽度(cm)</th>
+                        <th style="width: 80px;">高度(cm)</th>
+                        <th style="width: 80px;">克重(g)</th>
+                        <th style="width: 100px;">材质</th>
+                        <th style="width: 100px;">面积(㎡)</th>
+                        <th style="width: 100px;">金额(元)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -727,12 +729,25 @@
                 
                 // 面积(㎡)
                 const areaCell = document.createElement('td');
+                let area = 0;
                 if (parsedSpec) {
-                    areaCell.textContent = calculateArea(parsedSpec.width, parsedSpec.height);
+                    area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
+                    areaCell.textContent = area.toFixed(2);
                 } else {
                     areaCell.textContent = '-';
                 }
                 row.appendChild(areaCell);
+                
+                // 金额(元)
+                const priceCell = document.createElement('td');
+                const unitPrice = parseFloat(document.getElementById('priceInput').value) || 0;
+                if (parsedSpec) {
+                    const amount = area * unitPrice;
+                    priceCell.textContent = amount.toFixed(2);
+                } else {
+                    priceCell.textContent = '-';
+                }
+                row.appendChild(priceCell);
                 
                 resultBody.appendChild(row);
             });
@@ -759,7 +774,7 @@
                     // 添加规格标题
                     const titleRow = document.createElement('tr');
                     const titleCell = document.createElement('td');
-                    titleCell.colSpan = 8;
+                    titleCell.colSpan = 9;
                     titleCell.style.fontWeight = '600';
                     titleCell.style.background = '#f1f5f9';
                     titleCell.style.padding = '0.5rem 0.8rem';
@@ -817,12 +832,25 @@
                         
                         // 面积(㎡)
                         const areaCell = document.createElement('td');
+                        let area = 0;
                         if (parsedSpec) {
-                            areaCell.textContent = calculateArea(parsedSpec.width, parsedSpec.height);
+                            area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
+                            areaCell.textContent = area.toFixed(2);
                         } else {
                             areaCell.textContent = '-';
                         }
                         row.appendChild(areaCell);
+                        
+                        // 金额(元)
+                        const priceCell = document.createElement('td');
+                        const unitPrice = parseFloat(document.getElementById('priceInput').value) || 0;
+                        if (parsedSpec) {
+                            const amount = area * unitPrice;
+                            priceCell.textContent = amount.toFixed(2);
+                        } else {
+                            priceCell.textContent = '-';
+                        }
+                        row.appendChild(priceCell);
                         
                         // 添加点击事件
                         row.addEventListener('click', function() {
