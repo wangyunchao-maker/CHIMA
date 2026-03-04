@@ -596,6 +596,7 @@
                 
                 specsData = data;
                 console.log('数据加载成功，共', specsData.length, '条记录');
+                console.log('数据加载成功，共', specsData.length, '条记录，第一条:', specsData[0]);
             } catch (error) {
                 console.error('初始化数据失败:', error);
             }
@@ -626,7 +627,7 @@
         // 查找规格
         function findSpec(spec, material) {
             return specsData.find(item => 
-                item.spec === spec && item.material === parseInt(material)
+                item.spec.trim() === spec.trim() && item.material === parseInt(material)
             );
         }
         
@@ -875,6 +876,7 @@
             const material = document.getElementById('materialSelect').value;
             const specInput = document.getElementById('specInput').value;
             const specs = specInput.split('\n').filter(spec => spec.trim() !== '');
+            console.log('查询按钮点击，当前材质:', material, '规格列表:', specs);
             
             if (specs.length === 0) {
                 alert('请输入规格列表');
