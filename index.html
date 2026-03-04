@@ -626,8 +626,9 @@
         
         // 查找规格
         function findSpec(spec, material) {
+            const materialNum = parseInt(material);
             return specsData.find(item => 
-                item.spec.trim() === spec.trim() && item.material === parseInt(material)
+                item.spec.trim() === spec.trim() && Number(item.material) === materialNum
             );
         }
         
@@ -637,7 +638,7 @@
             if (!parsedSpec) return [];
             
             return specsData
-                .filter(item => item.material === parseInt(material))
+                .filter(item => Number(item.material) === parseInt(material))
                 .map(item => {
                     const itemSpec = parseSpec(item.spec);
                     if (!itemSpec) return null;
