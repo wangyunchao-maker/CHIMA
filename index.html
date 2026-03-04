@@ -481,10 +481,7 @@
     <div class="input-container">
         <div class="spec-box">
             <label>规格列表 (一行一个)</label>
-            <textarea id="specInput" rows="4" placeholder="例如：50*100&#10;60*90&#10;180*270">50*100
-60*90
-180*270
-99*99</textarea>
+            <textarea id="specInput" rows="4" placeholder="例如：50*100&#10;60*90&#10;180*270"></textarea>
         </div>
         <div class="side-inputs">
             <div class="material-box">
@@ -572,7 +569,8 @@
         // Supabase 配置
         const supabaseUrl = 'https://wxtqqggghdpujycszrnz.supabase.co';
         const supabaseKey = 'sb_publishable_olBg7voMw0CJirzaqI2vbQ_19BftR_l';
-        const supabase = createClient(supabaseUrl, supabaseKey);
+        const { createClient } = supabase;
+        const supabaseClient = createClient(supabaseUrl, supabaseKey);
         const TABLE_NAME = 'shuju';
         
         // 材质映射
@@ -587,7 +585,7 @@
         // 初始化数据
         async function initData() {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from(TABLE_NAME)
                     .select('*');
                 
