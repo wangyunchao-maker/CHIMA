@@ -412,6 +412,14 @@
             transition: background-color 0.2s ease;
             text-align: left;
         }
+        /* 表格斑马纹 - 偶数行浅灰色背景 */
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* 未找到行覆盖斑马纹 */
+        .not-found-row {
+            background: #fff2f0 !important;
+        }
         tr:hover td {
             background-color: #f8fafc;
         }
@@ -466,11 +474,334 @@
             color: #7f9eb8;
             font-size: 0.85rem;
         }
+        
+        /* 反馈按钮 */
+        .feedback-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
+        }
+        .feedback-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        /* 模态框 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-content h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        /* 反馈文本框 */
+        #feedbackContent {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        #feedbackContent:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 图片上传区域 */
+        .image-upload-area {
+            border: 2px dashed #e2e8f0;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        .image-upload-area:hover {
+            border-color: #3b82f6;
+            background: #f1f5f9;
+        }
+        .image-upload-area p {
+            margin: 0.5rem 0;
+            color: #64748b;
+        }
+        
+        /* 图片预览 */
+        .image-preview {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* 模态框按钮 */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+        .cancel-btn {
+            background: white;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .cancel-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        .submit-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: #2563eb;
+        }
+        .submit-btn:disabled {
+            background: #93c5fd;
+            cursor: not-allowed;
+        }
+        
+        /* 管理员入口 */
+        .admin-entry {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .admin-entry:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* 管理员面板 */
+        .admin-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 标签切换 */
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #64748b;
+        }
+        .tab-btn:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        /* 登录输入框 */
+        #loginEmail, #loginPassword {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        #loginEmail:focus, #loginPassword:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 反馈项 */
+        .feedback-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+        }
+        .feedback-item img {
+            border-radius: 4px;
+        }
+        .feedback-item small {
+            color: #94a3b8;
+            margin-top: 0.5rem;
+            display: block;
+        }
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+        
+        /* 规格表格 */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 800px;
+        }
+        .specs-table th {
+            background: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            padding: 1rem 0.8rem;
+            border-bottom: 2px solid #e2e8f0;
+            text-align: left;
+        }
+        .specs-table td {
+            padding: 0.9rem 0.8rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+            text-align: left;
+        }
+        .specs-table tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        /* 编辑按钮 */
+        .edit-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+        .edit-btn:hover {
+            background: #2563eb;
+        }
+        
+        /* 规格编辑模态框输入框 */
+        #specField, #lengthField, #widthField, #heightField, #weightField, #materialField {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        #specField:focus, #lengthField:focus, #widthField:focus, #heightField:focus, #weightField:focus, #materialField:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>尺码助手</h1>
+    <h1 style="display: flex; justify-content: space-between;">
+        尺码助手
+        <button class="feedback-btn" id="feedbackBtn"><span>💬</span> 反馈</button>
+    </h1>
     <div class="sub">
         选择材质，输入多个规格（每行一个）和单价，查询对应长宽高克重，自动换算英寸尺码。<br>
         点击复制按钮可一键复制表格内容。未找到的规格将在下方展示相似规格表格。<br>
@@ -560,7 +891,87 @@
         </div>
     </div>
 
+    <!-- 管理员面板 -->
+    <div class="admin-panel" id="adminPanel" style="display: none; margin-top: 3rem; border-top: 2px solid #3b82f6; padding-top: 2rem;">
+        <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="feedback">反馈管理</button>
+            <button class="tab-btn" data-tab="specs">规格管理</button>
+        </div>
+        <!-- 反馈管理标签 -->
+        <div class="tab-content" id="feedbackTab">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>反馈列表</h3>
+                <button class="copy-btn" id="refreshFeedback">刷新</button>
+            </div>
+            <div id="feedbackList" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+        <!-- 规格管理标签 -->
+        <div class="tab-content" id="specsTab" style="display: none;">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>规格列表</h3>
+                <button class="copy-btn" id="addSpecBtn">+ 新增规格</button>
+            </div>
+            <div id="specsTableContainer"></div>
+        </div>
 
+        <!-- 规格编辑模态框 -->
+        <div class="modal" id="specModal">
+            <div class="modal-content" style="max-width: 550px;">
+                <h3 id="specModalTitle">新增规格</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <input type="text" id="specField" placeholder="规格 50*100">
+                    <select id="materialField">
+                        <option value="1">天鹅绒</option><option value="2">仿羊绒</option><option value="3">海绵底</option>
+                    </select>
+                    <input type="number" id="lengthField" placeholder="长度" step="0.1">
+                    <input type="number" id="widthField" placeholder="宽度" step="0.1">
+                    <input type="number" id="heightField" placeholder="高度" step="0.1">
+                    <input type="number" id="weightField" placeholder="克重" step="1">
+                </div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" id="cancelSpecModal">取消</button>
+                    <button class="submit-btn" id="saveSpecBtn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈模态框 -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>提交反馈</h3>
+            <textarea id="feedbackContent" placeholder="请输入规格或包装信息..."></textarea>
+            <div class="image-upload-area" id="dropArea">
+                <p>📸 点击此处或拖拽图片上传</p>
+                <p style="font-size:0.8rem;">你也可以直接粘贴截图 (Ctrl+V)</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+            <div class="image-preview" id="imagePreview"></div>
+            <div class="modal-actions">
+                <button class="cancel-btn" id="cancelFeedback">取消</button>
+                <button class="submit-btn" id="submitFeedback">提交</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 管理员登录入口（固定右下角） -->
+<div class="admin-entry" id="adminEntry">
+    <span style="font-size: 24px;">🔒</span>
+</div>
+
+<!-- 登录模态框 -->
+<div class="modal" id="loginModal">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3>管理员登录</h3>
+        <input type="email" id="loginEmail" placeholder="邮箱">
+        <input type="password" id="loginPassword" placeholder="密码">
+        <div class="modal-actions">
+            <button class="cancel-btn" id="cancelLogin">取消</button>
+            <button class="submit-btn" id="submitLogin">登录</button>
+        </div>
+    </div>
 </div>
 
 <!-- 模拟交互脚本 -->
@@ -603,6 +1014,287 @@
                 console.error('初始化数据失败:', error);
             }
         }
+        
+        // 反馈相关变量
+        let uploadedFile = null;
+
+        // 打开反馈模态框
+        document.getElementById('feedbackBtn').addEventListener('click', () => {
+            document.getElementById('feedbackModal').classList.add('active');
+        });
+
+        document.getElementById('cancelFeedback').addEventListener('click', () => {
+            document.getElementById('feedbackModal').classList.remove('active');
+            document.getElementById('feedbackContent').value = '';
+            document.getElementById('imagePreview').innerHTML = '';
+            uploadedFile = null;
+        });
+
+        // 图片上传处理（拖拽、点击、粘贴）
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        dropArea.addEventListener('click', () => fileInput.click());
+        dropArea.addEventListener('dragover', e => e.preventDefault());
+        dropArea.addEventListener('drop', e => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        });
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) handleFile(fileInput.files[0]);
+        });
+        document.addEventListener('paste', e => {
+            if (!document.getElementById('feedbackModal').classList.contains('active')) return;
+            const items = e.clipboardData?.items;
+            for (let item of items) {
+                if (item.type.startsWith('image/')) {
+                    handleFile(item.getAsFile());
+                    break;
+                }
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) return alert('请上传图片文件');
+            uploadedFile = file;
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}" style="max-width:100px;">`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 提交反馈
+        document.getElementById('submitFeedback').addEventListener('click', async () => {
+            const content = document.getElementById('feedbackContent').value.trim();
+            if (!content && !uploadedFile) return alert('请输入内容或上传图片');
+            const btn = document.getElementById('submitFeedback');
+            btn.disabled = true; btn.textContent = '提交中...';
+            try {
+                let imageUrl = null;
+                if (uploadedFile) {
+                    const fileName = `feedback/${Date.now()}_${uploadedFile.name}`;
+                    const { error: uploadError } = await supabaseClient.storage
+                        .from('feedback-images')
+                        .upload(fileName, uploadedFile);
+                    if (uploadError) throw uploadError;
+                    const { data: urlData } = supabaseClient.storage
+                        .from('feedback-images')
+                        .getPublicUrl(fileName);
+                    imageUrl = urlData.publicUrl;
+                }
+                const { error } = await supabaseClient.from('feedback').insert([{ content, image_url: imageUrl }]);
+                if (error) throw error;
+                alert('反馈提交成功！');
+                document.getElementById('cancelFeedback').click();
+            } catch (err) {
+                alert('提交失败：' + err.message);
+            } finally {
+                btn.disabled = false; btn.textContent = '提交';
+            }
+        });
+        
+        // 登录相关变量
+        let currentUser = null;
+        let currentSpecId = null;
+
+        // 检查登录状态
+        supabaseClient.auth.getSession().then(({ data }) => {
+            if (data.session) {
+                currentUser = data.session.user;
+                document.getElementById('adminEntry').innerHTML = '<span>🔓</span>';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadFeedback();
+            }
+        });
+
+        // 打开登录框
+        document.getElementById('adminEntry').addEventListener('click', () => {
+            if (currentUser) {
+                // 已登录，退出
+                supabaseClient.auth.signOut();
+                currentUser = null;
+                document.getElementById('adminEntry').innerHTML = '<span>🔒</span>';
+                document.getElementById('adminPanel').style.display = 'none';
+            } else {
+                document.getElementById('loginModal').classList.add('active');
+            }
+        });
+
+        document.getElementById('cancelLogin').addEventListener('click', () => {
+            document.getElementById('loginModal').classList.remove('active');
+        });
+
+        document.getElementById('submitLogin').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            if (!email || !password) return alert('请输入邮箱和密码');
+            const btn = document.getElementById('submitLogin');
+            btn.disabled = true; btn.textContent = '登录中...';
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                currentUser = data.user;
+                document.getElementById('loginModal').classList.remove('active');
+                document.getElementById('adminEntry').innerHTML = '<span>🔓</span>';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadFeedback();
+            } catch (err) {
+                alert('登录失败：' + err.message);
+            } finally {
+                btn.disabled = false; btn.textContent = '登录';
+            }
+        });
+
+        // 加载反馈列表
+        async function loadFeedback() {
+            if (!currentUser) return;
+            const { data, error } = await supabaseClient.from('feedback').select('*').order('created_at', { ascending: false });
+            if (error) return alert('加载反馈失败：' + error.message);
+            renderFeedbackList(data);
+        }
+
+        function renderFeedbackList(feedbacks) {
+            const container = document.getElementById('feedbackList');
+            if (!feedbacks.length) return container.innerHTML = '<p>暂无反馈</p>';
+            let html = '';
+            feedbacks.forEach(item => {
+                const date = new Date(item.created_at).toLocaleString();
+                html += `
+                    <div class="feedback-item" data-id="${item.id}">
+                        ${item.image_url ? `<img src="${item.image_url}" style="width:60px; height:60px; object-fit:cover;">` : ''}
+                        <div style="flex:1">${item.content}<br><small>${date}</small></div>
+                        <button class="delete-btn" onclick="deleteFeedback('${item.id}', '${item.image_url || ''}')">删除</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // 删除反馈
+        window.deleteFeedback = async function(id, imageUrl) {
+            if (!confirm('确定删除？')) return;
+            try {
+                if (imageUrl) {
+                    const path = imageUrl.split('/').pop(); // 简单处理，实际可能需要完整路径
+                    await supabaseClient.storage.from('feedback-images').remove([`feedback/${path}`]);
+                }
+                await supabaseClient.from('feedback').delete().eq('id', id);
+                loadFeedback();
+            } catch (err) {
+                alert('删除失败：' + err.message);
+            }
+        };
+
+        document.getElementById('refreshFeedback').addEventListener('click', loadFeedback);
+        
+        // 标签切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const tab = btn.dataset.tab;
+                document.getElementById('feedbackTab').style.display = tab === 'feedback' ? 'block' : 'none';
+                const specsTab = document.getElementById('specsTab');
+                specsTab.style.display = tab === 'specs' ? 'block' : 'none';
+                if (tab === 'specs' && currentUser) {
+                    loadSpecs();
+                }
+            });
+        });
+        
+        // 加载规格列表
+        async function loadSpecs() {
+            if (!currentUser) return;
+            const { data, error } = await supabaseClient.from('shuju').select('*').order('spec');
+            if (error) return alert('加载规格失败：' + error.message);
+            specsData = data; // 更新缓存
+            renderSpecsTable(data);
+        }
+
+        function renderSpecsTable(specs) {
+            let html = `<table class="specs-table"><thead><tr>
+                <th>规格</th><th>材质</th><th>长度</th><th>宽度</th><th>高度</th><th>克重</th><th>体积</th><th>操作</th>
+            </tr></thead><tbody>`;
+            specs.forEach(item => {
+                const volume = (item.length * item.width * item.height).toFixed(0);
+                html += `<tr>
+                    <td>${item.spec}</td>
+                    <td><span class="material-badge material-${item.material}">${materialMap[item.material]}</span></td>
+                    <td>${item.length}</td>
+                    <td>${item.width}</td>
+                    <td>${item.height}</td>
+                    <td>${item.weight}</td>
+                    <td>${volume}</td>
+                    <td> 
+                        <button class="edit-btn" onclick="editSpec('${item.id}')">编辑</button>
+                        <button class="delete-btn" onclick="deleteSpec('${item.id}')">删除</button>
+                    </td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('specsTableContainer').innerHTML = html;
+        }
+
+        // 新增
+        document.getElementById('addSpecBtn').addEventListener('click', () => {
+            currentSpecId = null;
+            document.getElementById('specModalTitle').textContent = '新增规格';
+            ['specField','materialField','lengthField','widthField','heightField','weightField'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('materialField').value = '1';
+            document.getElementById('specModal').classList.add('active');
+        });
+
+        // 编辑
+        window.editSpec = function(id) {
+            const spec = specsData.find(s => s.id == id);
+            if (!spec) return;
+            currentSpecId = id;
+            document.getElementById('specModalTitle').textContent = '编辑规格';
+            document.getElementById('specField').value = spec.spec;
+            document.getElementById('materialField').value = spec.material;
+            document.getElementById('lengthField').value = spec.length;
+            document.getElementById('widthField').value = spec.width;
+            document.getElementById('heightField').value = spec.height;
+            document.getElementById('weightField').value = spec.weight;
+            document.getElementById('specModal').classList.add('active');
+        };
+
+        // 删除
+        window.deleteSpec = async function(id) {
+            if (!confirm('确定删除？')) return;
+            const { error } = await supabaseClient.from('shuju').delete().eq('id', id);
+            if (error) alert('删除失败：' + error.message);
+            else loadSpecs();
+        };
+
+        // 保存
+        document.getElementById('saveSpecBtn').addEventListener('click', async () => {
+            const spec = document.getElementById('specField').value.trim();
+            const material = document.getElementById('materialField').value;
+            const length = parseFloat(document.getElementById('lengthField').value);
+            const width = parseFloat(document.getElementById('widthField').value);
+            const height = parseFloat(document.getElementById('heightField').value);
+            const weight = parseInt(document.getElementById('weightField').value);
+            if (!spec || isNaN(length) || isNaN(width) || isNaN(height) || isNaN(weight)) {
+                return alert('请完整填写所有字段');
+            }
+            const data = { spec, material, length, width, height, weight };
+            try {
+                if (currentSpecId) {
+                    await supabaseClient.from('shuju').update(data).eq('id', currentSpecId);
+                } else {
+                    await supabaseClient.from('shuju').insert([data]);
+                }
+                document.getElementById('specModal').classList.remove('active');
+                loadSpecs();
+            } catch (err) {
+                alert('保存失败：' + err.message);
+            }
+        });
+
+        document.getElementById('cancelSpecModal').addEventListener('click', () => {
+            document.getElementById('specModal').classList.remove('active');
+        });
         
         // 英寸换算
         function cmToInch(cm) {
