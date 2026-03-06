@@ -392,7 +392,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
-            min-width: 1200px;
+            min-width: 900px;
         }
         th {
             background: #f8fafc;
@@ -799,7 +799,7 @@
 <body>
 <div class="container">
     <h1 style="display: flex; justify-content: space-between;">
-        尺码助手
+        极彩家居——尺码助手
         <button class="feedback-btn" id="feedbackBtn"><span>💬</span> 反馈</button>
     </h1>
     <div class="sub">
@@ -845,15 +845,14 @@
             <table id="resultTable">
                 <thead>
                     <tr>
-                        <th style="width: 180px;">尺码 (in/cm)</th>
-                        <th style="width: 100px;">规格</th>
-                        <th style="width: 80px;">长度(cm)</th>
-                        <th style="width: 80px;">宽度(cm)</th>
-                        <th style="width: 80px;">高度(cm)</th>
-                        <th style="width: 80px;">克重(g)</th>
-                        <th style="width: 100px;">材质</th>
-                        <th style="width: 100px;">面积(㎡)</th>
-                        <th style="width: 100px;">金额(元)</th>
+                        <th style="width: 160px;">尺码 (in/cm)</th>
+                        <th style="width: 90px;">规格</th>
+                        <th style="width: 70px;">长度(cm)</th>
+                        <th style="width: 70px;">宽度(cm)</th>
+                        <th style="width: 70px;">高度(cm)</th>
+                        <th style="width: 70px;">克重(g)</th>
+                        <th style="width: 90px;">材质</th>
+                        <th style="width: 90px;">金额(元)</th>
                     </tr>
                 </thead>
                 <tbody id="resultBody">
@@ -873,15 +872,14 @@
             <table class="similar-table">
                 <thead>
                     <tr>
-                        <th style="width: 180px;">尺码 (in/cm)</th>
-                        <th style="width: 100px;">规格</th>
-                        <th style="width: 80px;">长度(cm)</th>
-                        <th style="width: 80px;">宽度(cm)</th>
-                        <th style="width: 80px;">高度(cm)</th>
-                        <th style="width: 80px;">克重(g)</th>
-                        <th style="width: 100px;">材质</th>
-                        <th style="width: 100px;">面积(㎡)</th>
-                        <th style="width: 100px;">金额(元)</th>
+                        <th style="width: 160px;">尺码 (in/cm)</th>
+                        <th style="width: 90px;">规格</th>
+                        <th style="width: 70px;">长度(cm)</th>
+                        <th style="width: 70px;">宽度(cm)</th>
+                        <th style="width: 70px;">高度(cm)</th>
+                        <th style="width: 70px;">克重(g)</th>
+                        <th style="width: 90px;">材质</th>
+                        <th style="width: 90px;">金额(元)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -940,6 +938,7 @@
     <div class="modal" id="feedbackModal">
         <div class="modal-content" style="max-width: 500px;">
             <h3>提交反馈</h3>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">欢迎提交 Temu 平台测量参考数据，提交时请尽量补充完整 规格、材质、体积、重量 等相关信息，同时可附上相关截图，以便我们更准确地更新数据。</p>
             <textarea id="feedbackContent" placeholder="请输入规格或包装信息..."></textarea>
             <div class="image-upload-area" id="dropArea">
                 <p>📸 点击此处或拖拽图片上传</p>
@@ -1161,13 +1160,48 @@
                 const date = new Date(item.created_at).toLocaleString();
                 html += `
                     <div class="feedback-item" data-id="${item.id}">
-                        ${item.image_url ? `<img src="${item.image_url}" style="width:60px; height:60px; object-fit:cover;">` : ''}
+                        ${item.image_url ? `<img src="${item.image_url}" style="width:60px; height:60px; object-fit:cover; cursor: pointer;" onclick="window.previewImage('${item.image_url}')">` : ''}
                         <div style="flex:1">${item.content}<br><small>${date}</small></div>
                         <button class="delete-btn" onclick="deleteFeedback('${item.id}', '${item.image_url || ''}')">删除</button>
                     </div>
                 `;
             });
             container.innerHTML = html;
+        }
+        
+        // 图片预览
+        window.previewImage = function(imageUrl) {
+            // 创建预览容器
+            const previewContainer = document.createElement('div');
+            previewContainer.style.position = 'fixed';
+            previewContainer.style.top = '0';
+            previewContainer.style.left = '0';
+            previewContainer.style.width = '100%';
+            previewContainer.style.height = '100%';
+            previewContainer.style.background = 'rgba(0, 0, 0, 0.9)';
+            previewContainer.style.display = 'flex';
+            previewContainer.style.alignItems = 'center';
+            previewContainer.style.justifyContent = 'center';
+            previewContainer.style.zIndex = '2000';
+            previewContainer.style.cursor = 'pointer';
+            
+            // 创建图片
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.objectFit = 'contain';
+            
+            // 添加到容器
+            previewContainer.appendChild(img);
+            
+            // 点击关闭
+            previewContainer.addEventListener('click', () => {
+                document.body.removeChild(previewContainer);
+            });
+            
+            // 添加到页面
+            document.body.appendChild(previewContainer);
         }
 
         // 删除反馈
@@ -1197,6 +1231,7 @@
                 const specsTab = document.getElementById('specsTab');
                 specsTab.style.display = tab === 'specs' ? 'block' : 'none';
                 if (tab === 'specs' && currentUser) {
+                    console.log('切换到规格管理标签，加载规格数据');
                     loadSpecs();
                 }
             });
@@ -1419,21 +1454,11 @@
                 }
                 row.appendChild(materialCell);
                 
-                // 面积(㎡)
-                const areaCell = document.createElement('td');
-                let area = 0;
-                if (parsedSpec) {
-                    area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
-                    areaCell.textContent = area.toFixed(2);
-                } else {
-                    areaCell.textContent = '-';
-                }
-                row.appendChild(areaCell);
-                
                 // 金额(元)
                 const priceCell = document.createElement('td');
                 const unitPrice = parseFloat(document.getElementById('priceInput').value) || 0;
                 if (parsedSpec) {
+                    const area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
                     const amount = area * unitPrice;
                     priceCell.textContent = amount.toFixed(2);
                 } else {
@@ -1466,7 +1491,7 @@
                     // 添加规格标题
                     const titleRow = document.createElement('tr');
                     const titleCell = document.createElement('td');
-                    titleCell.colSpan = 9;
+                    titleCell.colSpan = 8;
                     titleCell.style.fontWeight = '600';
                     titleCell.style.background = '#f1f5f9';
                     titleCell.style.padding = '0.5rem 0.8rem';
@@ -1522,21 +1547,11 @@
                         materialCell.innerHTML = `<span class="material-badge ${materialClass}">${materialName}</span>`;
                         row.appendChild(materialCell);
                         
-                        // 面积(㎡)
-                        const areaCell = document.createElement('td');
-                        let area = 0;
-                        if (parsedSpec) {
-                            area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
-                            areaCell.textContent = area.toFixed(2);
-                        } else {
-                            areaCell.textContent = '-';
-                        }
-                        row.appendChild(areaCell);
-                        
                         // 金额(元)
                         const priceCell = document.createElement('td');
                         const unitPrice = parseFloat(document.getElementById('priceInput').value) || 0;
                         if (parsedSpec) {
+                            const area = parseFloat(calculateArea(parsedSpec.width, parsedSpec.height));
                             const amount = area * unitPrice;
                             priceCell.textContent = amount.toFixed(2);
                         } else {
